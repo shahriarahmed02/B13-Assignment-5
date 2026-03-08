@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | GitHub Issues Tracker</title>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Geist', sans-serif;
+      background-color: #f6f8fa;
+    }
+
+    .tab-active-purple {
+      background-color: #6366f1 !important;
+      color: white !important;
+      shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.3);
+    }
+  </style>
+</head>
+
+<body class="min-h-screen">
+
+  <nav class="bg-[#1f2328] px-6 py-3 text-white shadow-md flex justify-between items-center">
+    <div class="flex items-center gap-4">
+      <div class="flex items-center gap-2">
+        <i class="fa-brands fa-github text-3xl"></i>
+        <h1 class="text-xl font-bold">GitHub Issues</h1>
+      </div>
+
+    </div>
+    <div class="flex gap-2">
+      <input id="search-input" type="text" placeholder="Search issues..."
+        class="input input-sm input-bordered text-gray-800 w-64 rounded-lg" />
+      <button onclick="handleSearch()" class="btn btn-sm btn-info text-white rounded-lg px-4">Search</button>
+    </div>
+  </nav>
+
+  <main class="max-w-7xl mx-auto p-6">
+    <div class="flex justify-start mb-6">
+      <div class="join bg-white p-1 rounded-xl border border-gray-200 shadow-sm">
+        <button onclick="filterIssues('all', this)"
+          class="btn btn-sm join-item border-none tab-active-purple px-6">All</button>
+        <button onclick="filterIssues('open', this)"
+          class="btn btn-sm join-item border-none bg-transparent text-gray-500 px-6">Open</button>
+        <button onclick="filterIssues('closed', this)"
+          class="btn btn-sm join-item border-none bg-transparent text-gray-500 px-6">Closed</button>
+      </div>
+    </div>
+
+    <div
+      class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm mb-8 flex flex-col md:flex-row items-center justify-between gap-4">
+
+      <div class="flex items-center gap-4">
+        <div class="w-14 h-14 bg-indigo-50 rounded-full flex items-center justify-center shrink-0">
+          <img src="./assets/Aperture.png" alt="Icon" class="w-7 h-7 object-contain">
+        </div>
+
+        <div class="text-left">
+          <h2 class="text-2xl font-black text-gray-800 leading-none mb-1">
+            <span id="issue-count">0</span> Issues
+          </h2>
+          <p class="text-xs text-gray-400 font-medium">Currently displayed in this view</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-6 bg-gray-50 px-6 py-3 rounded-xl border border-gray-100">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.4)]"></span>
+          <span class="text-[11px] font-bold text-gray-600 uppercase tracking-wider">Open</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-purple-500 shadow-[0_0_8px_rgba(139,92,246,0.4)]"></span>
+          <span class="text-[11px] font-bold text-gray-600 uppercase tracking-wider">Closed</span>
+        </div>
+      </div>
+    </div>
+
+    <div id="loading-spinner" class="flex justify-center my-20 hidden">
+      <span class="loading loading-spinner loading-lg text-indigo-600"></span>
+    </div>
+
+    <div id="issues-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+  </main>
+
+  <dialog id="issue_modal" class="modal">
+    <div
+      class="modal-box w-11/12 max-w-2xl rounded-[40px] border-t-[14px] border-[#6366f1] p-10 shadow-2xl relative bg-white">
+
+      <form method="dialog">
+        <button
+          class="btn btn-sm btn-circle btn-ghost absolute right-6 top-6 text-gray-400 hover:bg-gray-100 transition-all">✕</button>
+      </form>
+
+      <div id="modal-content"></div>
+
+      <div class="modal-action flex justify-center mt-12">
+        <form method="dialog">
+          <button
+            class="btn bg-[#6366f1] hover:bg-[#4f46e5] text-white px-14 py-4 h-auto rounded-2xl border-none font-bold text-sm tracking-widest shadow-lg shadow-indigo-100 uppercase">
+            Got it, thanks!
+          </button>
+        </form>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
