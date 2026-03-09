@@ -1,6 +1,6 @@
 let allIssues = [];
 
-// ১. ডাটা ফেচ করা
+//1.Data Fetching
 async function fetchIssues() {
     const spinner = document.getElementById('loading-spinner');
     try {
@@ -16,7 +16,7 @@ async function fetchIssues() {
     }
 }
 
-// ২. কার্ড রেন্ডার করা (আপনার সব রিকয়ারমেন্ট এখানে)
+//2.card creation and display logic
 function displayIssues(issues) {
     const container = document.getElementById('issues-container');
     const countLabel = document.getElementById('issue-count');
@@ -24,24 +24,23 @@ function displayIssues(issues) {
     countLabel.innerText = issues.length;
 
     issues.forEach(issue => {
-        // স্ট্যাটাস অনুযায়ী PNG এবং বর্ডার
+      //Status Icon and Border Logic
         const statusIcon = issue.status === 'open' ? './assets/Open-Status.png' : './assets/Closed-Status.png';
         const borderClass = issue.status === 'open' ? 'border-t-green-400' : 'border-t-purple-500';
         
 let prioStyle = "";
-const priority = issue.priority.toLowerCase(); // ডাটা ছোট বা বড় হাতের যাই হোক, এটি কাজ করবে
-
+const priority = issue.priority.toLowerCase(); 
 if(priority === 'high') {
     prioStyle = "bg-red-100 text-red-600 border-red-200";
 } else if(priority === 'medium') {
     prioStyle = "bg-orange-100 text-orange-600 border-orange-200";
 } else {
-    prioStyle = "bg-green-50 text-green-600 border-green-100"; // Low এর জন্য
+    prioStyle = "bg-green-50 text-green-600 border-green-100"; 
 }
         const card = document.createElement('div');
         card.className = `bg-white p-5 rounded-2xl border-t-4 ${borderClass} border-x border-b border-gray-100 shadow-sm hover:shadow-md transition-all cursor-pointer flex flex-col justify-between`;
         
-        // কার্ডে ক্লিক করলে মডাল ওপেন হবে
+        //3.Card Click Logic to open modal with details
         card.onclick = () => openModal(issue);
 
         card.innerHTML = `
@@ -72,7 +71,7 @@ function openModal(issue) {
     // Status Badge Logic
     const statusBg = issue.status === 'open' ? 'bg-green-100 text-green-600' : 'bg-indigo-100 text-[#6366f1]';
     
-    // Priority Logic (Your new code)
+    // Priority Logic 
     let prioStyle = "";
     const priority = issue.priority.toLowerCase();
 
@@ -88,7 +87,7 @@ function openModal(issue) {
     if(issue.status.toLowerCase() === 'open') {
         statusbg = "bg-green-500 text-white";
     } else {
-        statusbg = "bg-indigo-500 text-white";
+        statusbg = "bg-purple-500 text-white";
     }
 
     modalContent.innerHTML = `
@@ -138,7 +137,7 @@ function openModal(issue) {
     document.getElementById('issue_modal').showModal();
 }
 
-// ৪. ট্যাব ফিল্টারিং লজিক
+// 4.tab filtering logic
 function filterIssues(status, element) {
     const tabs = document.querySelectorAll('.join-item');
     tabs.forEach(tab => {
@@ -155,7 +154,7 @@ function filterIssues(status, element) {
     else displayIssues(allIssues.filter(i => i.status === status));
 }
 
-// ৫. সার্চ লজিক
+//5.search logic
 async function handleSearch() {
     const text = document.getElementById('search-input').value.trim();
     if (!text) return displayIssues(allIssues);
