@@ -89,20 +89,15 @@
 
   <dialog id="issue_modal" class="modal">
     <div
-      class="modal-box w-11/12 max-w-2xl rounded-[40px] border-t-[14px] border-[#6366f1] p-10 shadow-2xl relative bg-white">
-
-      <form method="dialog">
-        <button
-          class="btn btn-sm btn-circle btn-ghost absolute right-6 top-6 text-gray-400 hover:bg-gray-100 transition-all">✕</button>
-      </form>
+      class="modal-box w-11/12 md:w-6/12 max-w-xl rounded-[24px] md:rounded-[30px] p-5 md:p-8 shadow-3xl relative bg-white flex flex-col gap-4">
 
       <div id="modal-content"></div>
 
-      <div class="modal-action flex justify-center mt-12">
+      <div class="modal-action flex justify-end mt-2">
         <form method="dialog">
           <button
-            class="btn bg-[#6366f1] hover:bg-[#4f46e5] text-white px-14 py-4 h-auto rounded-2xl border-none font-bold text-sm tracking-widest shadow-lg shadow-indigo-100 uppercase">
-            Got it, thanks!
+            class="btn bg-[#6366f1] hover:bg-[#4f46e5] text-white rounded-2xl border-none font-semibold text-sm tracking-widest shadow-lg shadow-indigo-100 uppercase px-8">
+            Close
           </button>
         </form>
       </div>

@@ -66,27 +66,44 @@ if(priority === 'high') {
     });
 }
 
-// ৩. মডাল ওপেন করার ফাংশন
 function openModal(issue) {
     const modalContent = document.getElementById('modal-content');
     
     // Status Badge Logic
     const statusBg = issue.status === 'open' ? 'bg-green-100 text-green-600' : 'bg-indigo-100 text-[#6366f1]';
+    
+    // Priority Logic (Your new code)
+    let prioStyle = "";
+    const priority = issue.priority.toLowerCase();
+
+    if (priority === 'high') {
+        prioStyle = "bg-red-500 text-white border-red-200 ";
+    } else if (priority === 'medium') {
+        prioStyle = "bg-orange-500 text-white border-orange-200";
+    } else {
+        prioStyle = "bg-green-500 text-white border-green-200";
+    }
+
+    let statusbg = "";
+    if(issue.status.toLowerCase() === 'open') {
+        statusbg = "bg-green-500 text-white";
+    } else {
+        statusbg = "bg-indigo-500 text-white";
+    }
 
     modalContent.innerHTML = `
-        <div class="flex flex-col gap-6">
+        <div class="flex flex-col gap-1">
+            <h2 class="text-4xl font-black text-gray-900 leading-[1.1] tracking-tight">
+                ${issue.title}
+            </h2>
             <div class="flex items-center justify-between">
-                <span class="${statusBg} px-5 py-2 rounded-full text-[11px] font-black uppercase tracking-[2px]">
+                <span class="${statusbg} px-5 py-2 rounded-full text-[11px] font-black uppercase tracking-[2px]">
                     ${issue.status}
                 </span>
                 <span class="text-[11px] text-gray-300 font-bold uppercase tracking-widest">
                     Posted on ${new Date(issue.createdAt).toLocaleDateString()}
                 </span>
             </div>
-
-            <h2 class="text-4xl font-black text-gray-900 leading-[1.1] tracking-tight">
-                ${issue.title}
-            </h2>
 
             <div class="bg-[#F8FAFC] p-8 rounded-[24px] border border-gray-100">
                 <p class="text-gray-500 text-base leading-relaxed">
@@ -99,10 +116,17 @@ function openModal(issue) {
                     <span class="text-[10px] uppercase font-black text-gray-400 tracking-widest">Reporter</span>
                     <span class="text-base font-bold text-gray-800">${issue.author}</span>
                 </div>
-                <div class="flex flex-col gap-1 border-x border-gray-100 px-4">
-                    <span class="text-[10px] uppercase font-black text-gray-400 tracking-widest">Priority</span>
-                    <span class="text-base font-bold text-gray-800">${issue.priority}</span>
-                </div>
+                
+                <div class="flex flex-col gap-1 border-x border-gray-100 px-6 items-center">
+    <span class="text-[10px] uppercase font-black text-gray-400 tracking-widest">Priority</span>
+    
+    <div class="w-fit">
+        <span class="${prioStyle} px-4 py-1 rounded-md text-[12px] font-bold inline-block">
+            ${issue.priority}
+        </span>
+    </div>
+</div>
+
                 <div class="flex flex-col gap-1">
                     <span class="text-[10px] uppercase font-black text-gray-400 tracking-widest">Category</span>
                     <span class="text-base font-bold text-gray-800">Software Bug</span>
